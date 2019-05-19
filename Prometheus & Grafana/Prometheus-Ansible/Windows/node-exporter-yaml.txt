@@ -1,0 +1,20 @@
+---
+- hosts: win
+  remote_user: administrator
+  vars:
+    node_exporter_version: 0.14.0
+  tasks:
+    - name: test connection
+      win_ping:
+    - name: create group
+      win_group:
+        name: prometheus
+        state: present
+    - name: Download wmi to specified path
+      win_get_url:
+        url: https://github.com/martinlindhe/wmi_exporter/releases/download/v0.7.0/wmi_exporter-0.7.0-amd64.msi
+        dest: C:\
+    - name: install package
+      win_package:
+        path: C:\wmi_exporter-0.7.0-amd64.msi
+        state: present

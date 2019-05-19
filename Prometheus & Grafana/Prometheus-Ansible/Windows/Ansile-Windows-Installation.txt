@@ -1,0 +1,60 @@
+---
+- hosts: win
+  remote_user: wfp-qasim
+  tasks:
+    - name: test connection
+      win_ping:
+    - name: Download File to specified path
+      win_get_url:
+        url: https://github.com/martinlindhe/wmi_exporter/releases/download/v0.7.0/wmi_exporter-0.7.0-amd64.msi
+        dest: C:\
+    - name: install package
+      win_package:
+        path: C:\wmi_exporter-0.7.0-amd64.msi
+        product_id: '{0240359E-6A4C-4884-9E94-B397A02D893C}'
+        state: present
+
+
+BUG With .exe installation
+##################################################################################################################
+IDM
+##################################################################################################################
+---
+- hosts: win
+  remote_user: wfp-qasim
+  tasks:
+    - name: test connection
+      win_ping:
+    - name: Download File to specified path
+      win_get_url:
+        url: http://mirror2.internetdownloadmanager.com/idman633build1.exe?b=1&filename=idman633build1.exe
+        dest: C:\
+    - name: install package
+      win_package:
+        path: C:\idman633build1.exe
+        product_id: '{0240359E-6A4C-4884-9E94-B397A02D893C}'
+        state: present
+################################################################################################################
+
+OpenVpn msi
+#################################################################################################################
+---
+- hosts: win
+  remote_user: wfp-qasim
+  become_method: runas
+  become_user: SYSTEM
+  vars:
+    python3_version: 3.7.3
+  tasks:
+    - name: test connection
+      win_ping:
+    - name: Download File to specified path
+      win_get_url:
+        url: https://github.com/quickbooks2018/bash-scipts/raw/master/openvpn-connect-2.6.0.100_signed.msi
+        dest: C:\
+    - name: install package
+      win_package:
+        path: C:\openvpn-connect-2.6.0.100_signed.msi
+        product_id: '{0240359E-6A4C-4884-9E94-B397A02D893C}'
+        state: present
+#########################################################################################################

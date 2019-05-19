@@ -1,0 +1,21 @@
+https://www.youtube.com/watch?v=GUwfP6fmchM
+
+https://galaxy.ansible.com/cloudalchemy/node-exporter
+
+
+ansible-galaxy install cloudalchemy.node-exporter
+
+# Note I define /etc/ansible/hosts
+
+[linux]
+10.192.25.50
+10.192.25.76
+
+vim linux.yml
+
+---
+
+- hosts: linux
+  become: yes
+  roles:
+   - cloudalchemy.node-exporter

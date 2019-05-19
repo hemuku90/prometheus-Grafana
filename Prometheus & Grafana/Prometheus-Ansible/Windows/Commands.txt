@@ -1,0 +1,36 @@
+ansible-playbook node-exporter.yml
+
+
+vim /etc/ansible/hosts
+
+[win]
+10.11.15.21
+
+[win:vars]
+ansible_user=administrator
+ansible_password=S)YGowc*D?4
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+
+#Note Setup with regard to the doamin User with Administrative priviledges.
+
+https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html
+http://devopstechie.com/ansible-manage-windows-machine-with-ansible-by-credssp/
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+[win]
+10.192.35.193
+10.192.35.100
+10.192.35.126
+
+[win:vars]
+ansible_user=user@YOURDOMAIN.COM
+ansible_password=abclalala
+ansible_port=5985
+ansible_connection=winrm
+ansible_winrm_transport=credssp
+ansible_winrm_server_cert_validation=ignore
+
+
+
