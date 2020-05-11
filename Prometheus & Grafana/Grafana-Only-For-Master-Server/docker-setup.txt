@@ -1,33 +1,33 @@
-https://grafana.com/docs/installation/docker/#grafana-container-with-persistent-storage-recommended
+# https://grafana.com/docs/installation/docker/#grafana-container-with-persistent-storage-recommended
+# https://grafana.com/docs/installation/docker/
 
-docker run -d --name=grafana --user root -v  /home/ubuntu/grafana:/var/lib/grafana -p 3000:3000 grafana/grafana
+#!/bin/bash
+#Purpose: Monitoring
+#App: Grafana
+#OS AmazonLinux/Ubuntu
+#Maintainer DevOps Muhammad Asim <quickbooks2018@gmail.com>
+
+# Docker Installation
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh      2>&1 > /dev/null
+rm -rf get-docker.sh
+yum install -y docker 2>&1 > /dev/null
+systemctl start docker
+systemctl enable docker
+
+# Docker Compose Installation
+
+curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+docker-compose --version
 
 
-docker run -d -p 4000:3000 --name=asim --user root -v /home/grafana-storage:/var/lib/grafana  grafana/grafana:5.1.0
-
-
-docker run -d --name=grafana --user root -v  /root/grafana:/var/lib/grafana -v /root/grafana/grafana.ini:/etc/grafana/grafana.ini -p 3000:3000 grafana/grafana
-
-
-https://grafana.com/docs/installation/docker/
-
-docker volume create grafana
+##################################################################################################################################
 docker volume create grafana-etc
+docker volume create grafana
+docker run -id --name=grafana --user root -v  grafana:/var/lib/grafana -v grafana-etc:/etc/grafana -p 3000:3000 grafana/grafana:latest
+###################################################################################################################################
 
 
-
-
-docker run -d --name=grafana -v  grafana:/var/lib/grafana -v grafana-etc:/etc/grafana -p 3000:3000 grafana/grafana
-
-
-
- 
-
-or
-
-Note: "This will not work because of permissions"
-
-mkdir -p /root/grafana && mkdir -p /root/grafana/etc && chown root:root /root/grafana/etc -R
-
-docker run -d --name=grafana --user root -v  /root/grafana:/var/lib/grafana -v /root/grafana/ect:/etc/grafana -p 3000:3000 grafana/grafana
 
